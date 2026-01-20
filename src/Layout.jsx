@@ -42,10 +42,10 @@ export default function Layout({ children, currentPageName }) {
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">OA</span>
+                <span className="text-white font-bold text-lg">NS</span>
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900">ONE ATMOSPHERE</h1>
+                <h1 className="text-xl font-bold text-gray-900">NO SAFE MARGIN</h1>
                 <p className="text-xs text-gray-500">Foundation CRM</p>
               </div>
             </div>
