@@ -76,6 +76,7 @@ export default function LeadDetails() {
         organization: lead.organization,
         membership_tier: lead.membership_tier,
         pledge_amount: lead.pledge_amount,
+        pledge_currency: lead.pledge_currency || 'USD',
         pledge_frequency: lead.pledge_frequency,
         join_date: new Date().toISOString().split('T')[0],
       });

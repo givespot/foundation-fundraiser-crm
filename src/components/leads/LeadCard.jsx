@@ -61,7 +61,7 @@ export default function LeadCard({ lead, onStageChange, stages }) {
               <div className="flex items-center gap-2 p-2 bg-green-50 rounded-lg border border-green-200">
                 <DollarSign className="w-4 h-4 text-green-600" />
                 <span className="text-sm font-semibold text-green-700">
-                  ${lead.pledge_amount.toLocaleString()}
+                  {lead.pledge_currency || 'USD'} {lead.pledge_amount.toLocaleString()}
                   {lead.pledge_frequency && (
                     <span className="text-xs text-green-600 ml-1 font-normal">
                       / {lead.pledge_frequency.replace('_', ' ')}

@@ -34,6 +34,7 @@ export default function NewLead() {
     stage: 'new',
     membership_tier: '',
     pledge_amount: '',
+    pledge_currency: user?.preferred_currency || 'USD',
     pledge_frequency: '',
     source: '',
     interest_level: 'medium',
@@ -212,27 +213,43 @@ export default function NewLead() {
             </div>
 
             {/* Pledge Information */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="space-y-2">
-                <Label className="text-slate-300">Pledge Amount ($)</Label>
+                <Label className="text-gray-700">Pledge Amount</Label>
                 <Input
                   type="number"
                   min="0"
                   step="0.01"
                   value={formData.pledge_amount}
                   onChange={(e) => handleChange('pledge_amount', e.target.value)}
-                  className="bg-slate-700/50 border-slate-600 text-white"
+                  className="bg-white border-gray-200"
                   placeholder="1000"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label className="text-slate-300">Pledge Frequency</Label>
+                <Label className="text-gray-700">Currency</Label>
+                <Select value={formData.pledge_currency} onValueChange={(value) => handleChange('pledge_currency', value)}>
+                  <SelectTrigger className="bg-white border-gray-200">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="bg-white border-gray-200">
+                    <SelectItem value="USD">$ USD</SelectItem>
+                    <SelectItem value="EUR">€ EUR</SelectItem>
+                    <SelectItem value="GBP">£ GBP</SelectItem>
+                    <SelectItem value="CAD">C$ CAD</SelectItem>
+                    <SelectItem value="AUD">A$ AUD</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label className="text-gray-700">Frequency</Label>
                 <Select value={formData.pledge_frequency} onValueChange={(value) => handleChange('pledge_frequency', value)}>
-                  <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white">
+                  <SelectTrigger className="bg-white border-gray-200">
                     <SelectValue placeholder="How often?" />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-800 border-slate-700">
+                  <SelectContent className="bg-white border-gray-200">
                     <SelectItem value="one_time">One Time</SelectItem>
                     <SelectItem value="monthly">Monthly</SelectItem>
                     <SelectItem value="quarterly">Quarterly</SelectItem>

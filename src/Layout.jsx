@@ -20,6 +20,8 @@ export default function Layout({ children, currentPageName }) {
     { name: 'Leads', icon: Users, page: 'Leads' },
     { name: 'New Lead', icon: UserPlus, page: 'NewLead' },
     { name: 'Members', icon: Award, page: 'Members' },
+    { name: 'Team', icon: Users, page: 'InviteUser', adminOnly: true },
+    { name: 'Settings', icon: Settings, page: 'Settings' },
   ];
 
   return (
@@ -77,6 +79,7 @@ export default function Layout({ children, currentPageName }) {
         <aside className="w-60 min-h-screen bg-white border-r border-gray-200">
           <nav className="p-4 space-y-1">
             {navigation.map((item) => {
+              if (item.adminOnly && user?.role !== 'admin') return null;
               const Icon = item.icon;
               const isActive = currentPageName === item.page;
               return (

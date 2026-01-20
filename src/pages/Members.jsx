@@ -123,16 +123,16 @@ export default function Members() {
 
                 {/* Pledge */}
                 {member.pledge_amount && (
-                  <div className="p-3 bg-green-500/10 rounded-lg border border-green-500/20">
+                  <div className="p-3 bg-green-50 rounded-lg border border-green-200">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <DollarSign className="w-4 h-4 text-green-400" />
-                        <span className="text-sm font-semibold text-green-300">
-                          ${member.pledge_amount.toLocaleString()}
+                        <DollarSign className="w-4 h-4 text-green-600" />
+                        <span className="text-sm font-semibold text-green-700">
+                          {member.pledge_currency || 'USD'} {member.pledge_amount.toLocaleString()}
                         </span>
                       </div>
                       {member.pledge_frequency && (
-                        <span className="text-xs text-green-400/70">
+                        <span className="text-xs text-green-600">
                           {member.pledge_frequency.replace('_', ' ')}
                         </span>
                       )}
