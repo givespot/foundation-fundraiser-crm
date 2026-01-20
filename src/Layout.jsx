@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from './utils';
-import { LayoutDashboard, Users, UserPlus, Award, Settings, LogOut } from 'lucide-react';
+import { LayoutDashboard, Users, UserPlus, Award, Mail, Settings, LogOut } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 export default function Layout({ children, currentPageName }) {
@@ -20,6 +20,7 @@ export default function Layout({ children, currentPageName }) {
     { name: 'Leads', icon: Users, page: 'Leads' },
     { name: 'New Lead', icon: UserPlus, page: 'NewLead' },
     { name: 'Members', icon: Award, page: 'Members' },
+    { name: 'Email Sequences', icon: Mail, page: 'EmailSequences' },
     { name: 'Team', icon: Users, page: 'InviteUser', adminOnly: true },
     { name: 'Settings', icon: Settings, page: 'Settings' },
   ];
