@@ -9,11 +9,11 @@ import LeadCard from '../components/leads/LeadCard';
 import LeadFilters from '../components/leads/LeadFilters';
 
 const stages = [
-  { id: 'new', label: 'New', color: 'blue' },
-  { id: 'contacted', label: 'Contacted', color: 'purple' },
-  { id: 'interested', label: 'Interested', color: 'yellow' },
-  { id: 'proposal_sent', label: 'Proposal Sent', color: 'orange' },
-  { id: 'committed', label: 'Committed', color: 'green' },
+  { id: 'new', label: 'New', color: 'bg-blue-100', textColor: 'text-blue-700', dotColor: 'bg-blue-500' },
+  { id: 'contacted', label: 'Contacted', color: 'bg-purple-100', textColor: 'text-purple-700', dotColor: 'bg-purple-500' },
+  { id: 'interested', label: 'Interested', color: 'bg-yellow-100', textColor: 'text-yellow-700', dotColor: 'bg-yellow-500' },
+  { id: 'proposal_sent', label: 'Proposal Sent', color: 'bg-orange-100', textColor: 'text-orange-700', dotColor: 'bg-orange-500' },
+  { id: 'committed', label: 'Committed', color: 'bg-green-100', textColor: 'text-green-700', dotColor: 'bg-green-500' },
 ];
 
 export default function Leads() {
@@ -96,18 +96,18 @@ export default function Leads() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-white">Leads Pipeline</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Leads Pipeline</h1>
       </div>
 
       {/* Search and Filters */}
-      <div className="flex flex-col md:flex-row gap-4">
+      <div className="flex flex-col md:flex-row gap-3">
         <div className="flex-1 relative">
-          <Search className="absolute left-3 top-3 w-5 h-5 text-slate-400" />
+          <Search className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
           <Input
             placeholder="Search leads by name, email, or organization..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 bg-slate-800/50 border-slate-700 text-white"
+            className="pl-10 bg-white border-gray-200 text-gray-900 h-10 rounded-lg shadow-sm"
           />
         </div>
         <LeadFilters 
@@ -121,12 +121,17 @@ export default function Leads() {
       {/* Pipeline Columns */}
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 overflow-x-auto pb-4">
         {stages.map((stage) => (
-          <div key={stage.id} className="min-w-[280px]">
-            <div className="mb-3 flex items-center justify-between">
-              <h3 className="font-semibold text-white">{stage.label}</h3>
-              <span className={`px-2 py-1 rounded-full text-xs font-medium bg-${stage.color}-500/20 text-${stage.color}-300`}>
-                {leadsByStage[stage.id]?.length || 0}
-              </span>
+          <div key={stage.id} className="min-w-[290px]">
+            <div className={`mb-3 p-3 rounded-lg ${stage.color}`}>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className={`w-2 h-2 rounded-full ${stage.dotColor}`}></div>
+                  <h3 className={`font-semibold ${stage.textColor}`}>{stage.label}</h3>
+                </div>
+                <span className={`px-2 py-0.5 rounded-md text-xs font-semibold ${stage.textColor}`}>
+                  {leadsByStage[stage.id]?.length || 0}
+                </span>
+              </div>
             </div>
             <div className="space-y-3 min-h-[400px]">
               {leadsByStage[stage.id]?.map((lead) => (
@@ -138,9 +143,9 @@ export default function Leads() {
                 />
               ))}
               {leadsByStage[stage.id]?.length === 0 && (
-                <Card className="bg-slate-800/30 border-slate-700 border-dashed p-8">
-                  <p className="text-slate-500 text-sm text-center">No leads</p>
-                </Card>
+                <div className="bg-gray-50 border-2 border-dashed border-gray-200 rounded-lg p-8">
+                  <p className="text-gray-400 text-sm text-center">No leads</p>
+                </div>
               )}
             </div>
           </div>
