@@ -143,7 +143,7 @@ export default function NewLead() {
               </div>
 
               <div className="space-y-2">
-                <Label className="text-slate-300">Organization</Label>
+                <Label className="text-slate-300">Organisation</Label>
                 <Input
                   value={formData.organization}
                   onChange={(e) => handleChange('organization', e.target.value)}

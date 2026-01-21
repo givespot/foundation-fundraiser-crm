@@ -234,7 +234,7 @@ export default function LeadDetails() {
                     />
                   </div>
                   <div>
-                    <label className="text-sm text-slate-400">Organization</label>
+                    <label className="text-sm text-slate-400">Organisation</label>
                     <Input
                       value={editedLead?.organization || ''}
                       onChange={(e) => setEditedLead({...editedLead, organization: e.target.value})}
@@ -327,7 +327,7 @@ export default function LeadDetails() {
                     <div className="flex items-center gap-3">
                       <Building2 className="w-5 h-5 text-purple-400" />
                       <div>
-                        <p className="text-xs text-slate-400">Organization</p>
+                        <p className="text-xs text-slate-400">Organisation</p>
                         <p className="text-sm text-white">{lead.organization}</p>
                       </div>
                     </div>
