@@ -30,7 +30,7 @@ export default function Layout({ children, currentPageName }) {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-gray-50 to-green-100">
+    <div className="min-h-screen bg-gradient-to-br from-blue-200 via-gray-100 to-green-200">
       <style>{`
         :root {
           --color-primary: #4285F4;
