@@ -23,6 +23,7 @@ export default function Layout({ children, currentPageName }) {
     { name: 'Onboarding', icon: UserPlus, page: 'MemberOnboarding' },
     { name: 'Email Sequences', icon: Mail, page: 'EmailSequences' },
     { name: 'Reports', icon: BarChart3, page: 'Reports' },
+    { name: 'Messages', icon: Mail, page: 'Messages' },
     { name: 'Team', icon: Users, page: 'InviteUser', adminOnly: true },
     { name: 'Audit Logs', icon: Settings, page: 'AuditLogs', adminOnly: true },
     { name: 'Settings', icon: Settings, page: 'Settings' },

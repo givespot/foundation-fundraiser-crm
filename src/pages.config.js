@@ -11,6 +11,7 @@ import SequenceDetails from './pages/SequenceDetails';
 import Settings from './pages/Settings';
 import MemberOnboarding from './pages/MemberOnboarding';
 import AuditLogs from './pages/AuditLogs';
+import Messages from './pages/Messages';
 import __Layout from './Layout.jsx';
 
 
@@ -28,6 +29,7 @@ export const PAGES = {
     "Settings": Settings,
     "MemberOnboarding": MemberOnboarding,
     "AuditLogs": AuditLogs,
+    "Messages": Messages,
 }
 
 export const pagesConfig = {

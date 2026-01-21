@@ -24,10 +24,8 @@ export default function Dashboard() {
     queryFn: () => base44.entities.Member.list(),
   });
 
-  // Filter for user's leads or all if admin
-  const myLeads = user?.role === 'admin' 
-    ? leads 
-    : leads.filter(l => l.assigned_to === user?.email);
+  // Show all leads to everyone
+  const myLeads = leads;
 
   // Calculate stats
   const activeLeads = myLeads.filter(l => l.status === 'active').length;
@@ -71,9 +69,7 @@ export default function Dashboard() {
             </div>
             <div className="text-3xl font-bold text-gray-900 mb-1">{activeLeads}</div>
             <p className="text-sm text-gray-600">Active Leads</p>
-            <p className="text-xs text-gray-400 mt-1">
-              {user?.role === 'admin' ? 'Total in pipeline' : 'Assigned to you'}
-            </p>
+            <p className="text-xs text-gray-400 mt-1">Total in pipeline</p>
           </CardContent>
         </Card>
 
