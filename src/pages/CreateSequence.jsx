@@ -21,6 +21,7 @@ export default function CreateSequence() {
     trigger_type: 'stage_change',
     trigger_stage: 'new',
     inactivity_days: 7,
+    is_onboarding: false,
     steps: [
       { order: 1, delay_days: 0, subject: '', body: '' }
     ]
@@ -69,8 +70,13 @@ export default function CreateSequence() {
     Generate a compelling subject line and email body that is warm, professional, and encourages engagement.`;
 
     try {
+      const isOnboarding = formData.trigger_type === 'member_conversion';
+      const onboardingPrompt = isOnboarding 
+        ? `This is a member onboarding email. Make it warm, welcoming, and include information about foundation resources, how to get involved, and next steps.`
+        : '';
+
       const response = await base44.integrations.Core.InvokeLLM({
-        prompt,
+        prompt: `${prompt}\n\n${onboardingPrompt}`,
         response_json_schema: {
           type: "object",
           properties: {
@@ -91,6 +97,7 @@ export default function CreateSequence() {
     e.preventDefault();
     createSequenceMutation.mutate({
       ...formData,
+      is_onboarding: formData.trigger_type === 'member_conversion',
       is_active: true,
       total_sent: 0,
       total_opens: 0,
@@ -163,10 +170,19 @@ export default function CreateSequence() {
                 <SelectContent className="bg-white border-gray-200">
                   <SelectItem value="stage_change">Lead Stage Change</SelectItem>
                   <SelectItem value="inactivity">Lead Inactivity</SelectItem>
+                  <SelectItem value="member_conversion">Member Conversion (Onboarding)</SelectItem>
                   <SelectItem value="manual">Manual Trigger</SelectItem>
                 </SelectContent>
               </Select>
             </div>
+
+            {formData.trigger_type === 'member_conversion' && (
+              <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <p className="text-sm text-blue-700">
+                  This sequence will automatically trigger when a lead is converted to a member. Perfect for welcome emails and onboarding.
+                </p>
+              </div>
+            )}
 
             {formData.trigger_type === 'stage_change' && (
               <div className="space-y-2">

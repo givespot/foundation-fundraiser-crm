@@ -20,6 +20,7 @@ export default function Layout({ children, currentPageName }) {
     { name: 'Leads', icon: Users, page: 'Leads' },
     { name: 'New Lead', icon: UserPlus, page: 'NewLead' },
     { name: 'Members', icon: Award, page: 'Members' },
+    { name: 'Onboarding', icon: UserPlus, page: 'MemberOnboarding' },
     { name: 'Email Sequences', icon: Mail, page: 'EmailSequences' },
     { name: 'Reports', icon: BarChart3, page: 'Reports' },
     { name: 'Team', icon: Users, page: 'InviteUser', adminOnly: true },

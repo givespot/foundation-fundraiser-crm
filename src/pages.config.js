@@ -6,9 +6,10 @@ import LeadDetails from './pages/LeadDetails';
 import Leads from './pages/Leads';
 import Members from './pages/Members';
 import NewLead from './pages/NewLead';
+import Reports from './pages/Reports';
 import SequenceDetails from './pages/SequenceDetails';
 import Settings from './pages/Settings';
-import Reports from './pages/Reports';
+import MemberOnboarding from './pages/MemberOnboarding';
 import __Layout from './Layout.jsx';
 
 
@@ -21,9 +22,10 @@ export const PAGES = {
     "Leads": Leads,
     "Members": Members,
     "NewLead": NewLead,
+    "Reports": Reports,
     "SequenceDetails": SequenceDetails,
     "Settings": Settings,
-    "Reports": Reports,
+    "MemberOnboarding": MemberOnboarding,
 }
 
 export const pagesConfig = {
