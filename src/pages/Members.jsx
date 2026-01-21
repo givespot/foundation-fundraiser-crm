@@ -16,6 +16,11 @@ const tierColors = {
 
 export default function Members() {
   const [searchTerm, setSearchTerm] = React.useState('');
+  const [user, setUser] = React.useState(null);
+
+  React.useEffect(() => {
+    base44.auth.me().then(setUser).catch(() => {});
+  }, []);
 
   const { data: members = [], isLoading } = useQuery({
     queryKey: ['members'],

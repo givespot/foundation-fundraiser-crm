@@ -68,6 +68,11 @@ export default function LeadDetails() {
 
   const convertToMemberMutation = useMutation({
     mutationFn: async () => {
+      // Check if user has permission
+      if (!user || (user.role !== 'admin' && user.role !== 'user')) {
+        throw new Error('Unauthorized');
+      }
+      
       const newMember = await base44.entities.Member.create({
         lead_id: lead.id,
         full_name: lead.full_name,
