@@ -1,14 +1,7 @@
-import { createClient } from '@base44/sdk';
-import { appParams } from '@/lib/app-params';
+/**
+ * Base44 Client Compatibility Layer
+ * Re-exports the custom API client with the same interface as Base44 SDK
+ * This allows existing code to work without changes
+ */
 
-const { appId, token, functionsVersion, appBaseUrl } = appParams;
-
-//Create a client with authentication required
-export const base44 = createClient({
-  appId,
-  token,
-  functionsVersion,
-  serverUrl: '',
-  requiresAuth: false,
-  appBaseUrl
-});
+export { api as base44, api as default } from './apiClient';
