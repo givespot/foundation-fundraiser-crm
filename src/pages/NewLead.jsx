@@ -31,6 +31,11 @@ export default function NewLead() {
     email: '',
     phone: '',
     organization: '',
+    address_line1: '',
+    address_line2: '',
+    town_city: '',
+    county: '',
+    postcode: '',
     stage: 'new',
     membership_tier: '',
     pledge_amount: '',
@@ -151,6 +156,60 @@ export default function NewLead() {
                   className="bg-white border-gray-200 text-gray-900"
                   placeholder="Company name"
                 />
+              </div>
+            </div>
+
+            {/* Address (UK Format) */}
+            <div className="space-y-4">
+              <h3 className="text-sm font-semibold text-gray-900">Address</h3>
+              <div className="grid grid-cols-1 gap-4">
+                <div className="space-y-2">
+                  <Label className="text-gray-700">Address Line 1</Label>
+                  <Input
+                    value={formData.address_line1}
+                    onChange={(e) => handleChange('address_line1', e.target.value)}
+                    className="bg-white border-gray-200 text-gray-900"
+                    placeholder="Street address"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-gray-700">Address Line 2</Label>
+                  <Input
+                    value={formData.address_line2}
+                    onChange={(e) => handleChange('address_line2', e.target.value)}
+                    className="bg-white border-gray-200 text-gray-900"
+                    placeholder="Apartment, suite, etc. (optional)"
+                  />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label className="text-gray-700">Town/City</Label>
+                    <Input
+                      value={formData.town_city}
+                      onChange={(e) => handleChange('town_city', e.target.value)}
+                      className="bg-white border-gray-200 text-gray-900"
+                      placeholder="London"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="text-gray-700">County</Label>
+                    <Input
+                      value={formData.county}
+                      onChange={(e) => handleChange('county', e.target.value)}
+                      className="bg-white border-gray-200 text-gray-900"
+                      placeholder="Greater London (optional)"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2 md:w-1/2">
+                  <Label className="text-gray-700">Postcode</Label>
+                  <Input
+                    value={formData.postcode}
+                    onChange={(e) => handleChange('postcode', e.target.value)}
+                    className="bg-white border-gray-200 text-gray-900"
+                    placeholder="SW1A 1AA"
+                  />
+                </div>
               </div>
             </div>
 
