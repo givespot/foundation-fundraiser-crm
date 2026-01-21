@@ -87,67 +87,67 @@ export default function NewLead() {
     <div className="max-w-3xl mx-auto space-y-6">
       <div className="flex items-center gap-4">
         <Link to={createPageUrl('Leads')}>
-          <Button variant="ghost" className="text-slate-400 hover:text-white">
+          <Button variant="ghost" className="text-gray-600 hover:text-gray-900">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back
           </Button>
         </Link>
         <div>
-          <h1 className="text-3xl font-bold text-white">Add New Lead</h1>
-          <p className="text-slate-400 mt-1">Capture potential member information</p>
+          <h1 className="text-3xl font-bold text-gray-900">Add New Lead</h1>
+          <p className="text-gray-600 mt-1">Capture potential member information</p>
         </div>
       </div>
 
-      <Card className="bg-slate-800/50 border-slate-700">
-        <CardHeader>
-          <CardTitle className="text-white flex items-center gap-2">
+      <Card className="bg-white border-0 shadow-sm">
+        <CardHeader className="border-b border-gray-100">
+          <CardTitle className="text-gray-900 flex items-center gap-2">
             <UserPlus className="w-5 h-5" />
             Lead Information
           </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-6">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Contact Info */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label className="text-slate-300">Full Name *</Label>
+                <Label className="text-gray-700">Full Name *</Label>
                 <Input
                   required
                   value={formData.full_name}
                   onChange={(e) => handleChange('full_name', e.target.value)}
-                  className="bg-slate-700/50 border-slate-600 text-white"
+                  className="bg-white border-gray-200 text-gray-900"
                   placeholder="John Doe"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label className="text-slate-300">Email *</Label>
+                <Label className="text-gray-700">Email *</Label>
                 <Input
                   required
                   type="email"
                   value={formData.email}
                   onChange={(e) => handleChange('email', e.target.value)}
-                  className="bg-slate-700/50 border-slate-600 text-white"
+                  className="bg-white border-gray-200 text-gray-900"
                   placeholder="john@example.com"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label className="text-slate-300">Phone</Label>
+                <Label className="text-gray-700">Phone</Label>
                 <Input
                   value={formData.phone}
                   onChange={(e) => handleChange('phone', e.target.value)}
-                  className="bg-slate-700/50 border-slate-600 text-white"
+                  className="bg-white border-gray-200 text-gray-900"
                   placeholder="+1 (555) 000-0000"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label className="text-slate-300">Organisation</Label>
+                <Label className="text-gray-700">Organisation</Label>
                 <Input
                   value={formData.organization}
                   onChange={(e) => handleChange('organization', e.target.value)}
-                  className="bg-slate-700/50 border-slate-600 text-white"
+                  className="bg-white border-gray-200 text-gray-900"
                   placeholder="Company name"
                 />
               </div>
@@ -156,12 +156,12 @@ export default function NewLead() {
             {/* Lead Details */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label className="text-slate-300">Source</Label>
+                <Label className="text-gray-700">Source</Label>
                 <Select value={formData.source} onValueChange={(value) => handleChange('source', value)}>
-                  <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white">
+                  <SelectTrigger className="bg-white border-gray-200 text-gray-900">
                     <SelectValue placeholder="How did they find us?" />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-800 border-slate-700">
+                  <SelectContent className="bg-white border-gray-200">
                     <SelectItem value="website">Website</SelectItem>
                     <SelectItem value="referral">Referral</SelectItem>
                     <SelectItem value="event">Event</SelectItem>
@@ -173,12 +173,12 @@ export default function NewLead() {
               </div>
 
               <div className="space-y-2">
-                <Label className="text-slate-300">Interest Level</Label>
+                <Label className="text-gray-700">Interest Level</Label>
                 <Select value={formData.interest_level} onValueChange={(value) => handleChange('interest_level', value)}>
-                  <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white">
+                  <SelectTrigger className="bg-white border-gray-200 text-gray-900">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-800 border-slate-700">
+                  <SelectContent className="bg-white border-gray-200">
                     <SelectItem value="low">Low</SelectItem>
                     <SelectItem value="medium">Medium</SelectItem>
                     <SelectItem value="high">High</SelectItem>
@@ -187,12 +187,12 @@ export default function NewLead() {
               </div>
 
               <div className="space-y-2">
-                <Label className="text-slate-300">Membership Tier</Label>
+                <Label className="text-gray-700">Membership Tier</Label>
                 <Select value={formData.membership_tier} onValueChange={(value) => handleChange('membership_tier', value)}>
-                  <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white">
+                  <SelectTrigger className="bg-white border-gray-200 text-gray-900">
                     <SelectValue placeholder="Desired membership level" />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-800 border-slate-700">
+                  <SelectContent className="bg-white border-gray-200">
                     <SelectItem value="basic_member">Basic Member</SelectItem>
                     <SelectItem value="patron">Patron</SelectItem>
                     <SelectItem value="major_donor">Major Donor</SelectItem>
@@ -202,12 +202,12 @@ export default function NewLead() {
               </div>
 
               <div className="space-y-2">
-                <Label className="text-slate-300">Next Follow-up Date</Label>
+                <Label className="text-gray-700">Next Follow-up Date</Label>
                 <Input
                   type="date"
                   value={formData.next_follow_up}
                   onChange={(e) => handleChange('next_follow_up', e.target.value)}
-                  className="bg-slate-700/50 border-slate-600 text-white"
+                  className="bg-white border-gray-200 text-gray-900"
                 />
               </div>
             </div>
@@ -262,12 +262,12 @@ export default function NewLead() {
             {/* Assignment (Admin only) */}
             {user?.role === 'admin' && (
               <div className="space-y-2">
-                <Label className="text-slate-300">Assign To</Label>
+                <Label className="text-gray-700">Assign To</Label>
                 <Select value={formData.assigned_to} onValueChange={(value) => handleChange('assigned_to', value)}>
-                  <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white">
+                  <SelectTrigger className="bg-white border-gray-200 text-gray-900">
                     <SelectValue placeholder="Select team member" />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-800 border-slate-700">
+                  <SelectContent className="bg-white border-gray-200">
                     {allUsers.map((u) => (
                       <SelectItem key={u.email} value={u.email}>
                         {u.full_name}
@@ -280,11 +280,11 @@ export default function NewLead() {
 
             {/* Notes */}
             <div className="space-y-2">
-              <Label className="text-slate-300">Notes</Label>
+              <Label className="text-gray-700">Notes</Label>
               <Textarea
                 value={formData.notes}
                 onChange={(e) => handleChange('notes', e.target.value)}
-                className="bg-slate-700/50 border-slate-600 text-white"
+                className="bg-white border-gray-200 text-gray-900"
                 rows={4}
                 placeholder="Any additional information..."
               />
@@ -293,7 +293,7 @@ export default function NewLead() {
             {/* Submit */}
             <div className="flex justify-end gap-3 pt-4">
               <Link to={createPageUrl('Leads')}>
-                <Button variant="outline" type="button" className="border-slate-600 text-slate-300">
+                <Button variant="outline" type="button" className="border-gray-200 text-gray-700">
                   Cancel
                 </Button>
               </Link>

@@ -110,7 +110,7 @@ export default function LeadDetails() {
   }, [lead]);
 
   if (isLoading || !lead) {
-    return <div className="text-white">Loading...</div>;
+    return <div className="text-gray-900">Loading...</div>;
   }
 
   const handleSave = () => {
@@ -135,21 +135,21 @@ export default function LeadDetails() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Link to={createPageUrl('Leads')}>
-            <Button variant="ghost" className="text-slate-400 hover:text-white">
+            <Button variant="ghost" className="text-gray-600 hover:text-gray-900">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Leads
             </Button>
           </Link>
           <div>
-            <h1 className="text-3xl font-bold text-white">{lead.full_name}</h1>
+            <h1 className="text-3xl font-bold text-gray-900">{lead.full_name}</h1>
             <div className="flex items-center gap-2 mt-1">
-              <Badge className="bg-blue-500/20 text-blue-300">
+              <Badge className="bg-blue-50 text-blue-700 border-blue-200">
                 {lead.stage.replace('_', ' ')}
               </Badge>
               <Badge className={`${
-                lead.interest_level === 'high' ? 'bg-red-500/20 text-red-300' :
-                lead.interest_level === 'medium' ? 'bg-yellow-500/20 text-yellow-300' :
-                'bg-blue-500/20 text-blue-300'
+                lead.interest_level === 'high' ? 'bg-red-50 text-red-700 border-red-200' :
+                lead.interest_level === 'medium' ? 'bg-yellow-50 text-yellow-700 border-yellow-200' :
+                'bg-blue-50 text-blue-700 border-blue-200'
               }`}>
                 {lead.interest_level} interest
               </Badge>
@@ -170,15 +170,15 @@ export default function LeadDetails() {
         {/* Left Column - Lead Info */}
         <div className="lg:col-span-2 space-y-6">
           {/* Contact Information */}
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="text-white">Lead Information</CardTitle>
+          <Card className="bg-white border-0 shadow-sm">
+            <CardHeader className="flex flex-row items-center justify-between border-b border-gray-100">
+              <CardTitle className="text-gray-900">Lead Information</CardTitle>
               {!isEditing ? (
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => setIsEditing(true)}
-                  className="border-slate-600 text-slate-300 hover:text-white"
+                  className="border-gray-200 text-gray-700 hover:text-gray-900"
                 >
                   Edit
                 </Button>
@@ -191,7 +191,7 @@ export default function LeadDetails() {
                       setIsEditing(false);
                       setEditedLead(lead);
                     }}
-                    className="border-slate-600"
+                    className="border-gray-200"
                   >
                     Cancel
                   </Button>
@@ -206,51 +206,51 @@ export default function LeadDetails() {
                 </div>
               )}
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-4 pt-6">
               {isEditing ? (
                 <>
                   <div>
-                    <label className="text-sm text-slate-400">Full Name</label>
+                    <label className="text-sm text-gray-700">Full Name</label>
                     <Input
                       value={editedLead?.full_name || ''}
                       onChange={(e) => setEditedLead({...editedLead, full_name: e.target.value})}
-                      className="bg-slate-700/50 border-slate-600 text-white mt-1"
+                      className="bg-white border-gray-200 text-gray-900 mt-1"
                     />
                   </div>
                   <div>
-                    <label className="text-sm text-slate-400">Email</label>
+                    <label className="text-sm text-gray-700">Email</label>
                     <Input
                       value={editedLead?.email || ''}
                       onChange={(e) => setEditedLead({...editedLead, email: e.target.value})}
-                      className="bg-slate-700/50 border-slate-600 text-white mt-1"
+                      className="bg-white border-gray-200 text-gray-900 mt-1"
                     />
                   </div>
                   <div>
-                    <label className="text-sm text-slate-400">Phone</label>
+                    <label className="text-sm text-gray-700">Phone</label>
                     <Input
                       value={editedLead?.phone || ''}
                       onChange={(e) => setEditedLead({...editedLead, phone: e.target.value})}
-                      className="bg-slate-700/50 border-slate-600 text-white mt-1"
+                      className="bg-white border-gray-200 text-gray-900 mt-1"
                     />
                   </div>
                   <div>
-                    <label className="text-sm text-slate-400">Organisation</label>
+                    <label className="text-sm text-gray-700">Organisation</label>
                     <Input
                       value={editedLead?.organization || ''}
                       onChange={(e) => setEditedLead({...editedLead, organization: e.target.value})}
-                      className="bg-slate-700/50 border-slate-600 text-white mt-1"
+                      className="bg-white border-gray-200 text-gray-900 mt-1"
                     />
                   </div>
                   <div>
-                    <label className="text-sm text-slate-400">Stage</label>
+                    <label className="text-sm text-gray-700">Stage</label>
                     <Select
                       value={editedLead?.stage}
                       onValueChange={(value) => setEditedLead({...editedLead, stage: value})}
                     >
-                      <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white mt-1">
+                      <SelectTrigger className="bg-white border-gray-200 text-gray-900 mt-1">
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent className="bg-slate-800 border-slate-700">
+                      <SelectContent className="bg-white border-gray-200">
                         <SelectItem value="new">New</SelectItem>
                         <SelectItem value="contacted">Contacted</SelectItem>
                         <SelectItem value="interested">Interested</SelectItem>
@@ -260,15 +260,15 @@ export default function LeadDetails() {
                     </Select>
                   </div>
                   <div>
-                    <label className="text-sm text-slate-400">Interest Level</label>
+                    <label className="text-sm text-gray-700">Interest Level</label>
                     <Select
                       value={editedLead?.interest_level}
                       onValueChange={(value) => setEditedLead({...editedLead, interest_level: value})}
                     >
-                      <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white mt-1">
+                      <SelectTrigger className="bg-white border-gray-200 text-gray-900 mt-1">
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent className="bg-slate-800 border-slate-700">
+                      <SelectContent className="bg-white border-gray-200">
                         <SelectItem value="low">Low</SelectItem>
                         <SelectItem value="medium">Medium</SelectItem>
                         <SelectItem value="high">High</SelectItem>
@@ -276,25 +276,25 @@ export default function LeadDetails() {
                     </Select>
                   </div>
                   <div>
-                    <label className="text-sm text-slate-400">Next Follow-up Date</label>
+                    <label className="text-sm text-gray-700">Next Follow-up Date</label>
                     <Input
                       type="date"
                       value={editedLead?.next_follow_up || ''}
                       onChange={(e) => setEditedLead({...editedLead, next_follow_up: e.target.value})}
-                      className="bg-slate-700/50 border-slate-600 text-white mt-1"
+                      className="bg-white border-gray-200 text-gray-900 mt-1"
                     />
                   </div>
                   {user?.role === 'admin' && (
                     <div>
-                      <label className="text-sm text-slate-400">Assigned To</label>
+                      <label className="text-sm text-gray-700">Assigned To</label>
                       <Select
                         value={editedLead?.assigned_to || ''}
                         onValueChange={(value) => setEditedLead({...editedLead, assigned_to: value})}
                       >
-                        <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white mt-1">
+                        <SelectTrigger className="bg-white border-gray-200 text-gray-900 mt-1">
                           <SelectValue placeholder="Unassigned" />
                         </SelectTrigger>
-                        <SelectContent className="bg-slate-800 border-slate-700">
+                        <SelectContent className="bg-white border-gray-200">
                           {allUsers.map((u) => (
                             <SelectItem key={u.email} value={u.email}>
                               {u.full_name}
@@ -308,36 +308,36 @@ export default function LeadDetails() {
               ) : (
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex items-center gap-3">
-                    <Mail className="w-5 h-5 text-blue-400" />
+                    <Mail className="w-5 h-5 text-blue-600" />
                     <div>
-                      <p className="text-xs text-slate-400">Email</p>
-                      <p className="text-sm text-white">{lead.email}</p>
+                      <p className="text-xs text-gray-600">Email</p>
+                      <p className="text-sm text-gray-900">{lead.email}</p>
                     </div>
                   </div>
                   {lead.phone && (
                     <div className="flex items-center gap-3">
-                      <Phone className="w-5 h-5 text-green-400" />
+                      <Phone className="w-5 h-5 text-green-600" />
                       <div>
-                        <p className="text-xs text-slate-400">Phone</p>
-                        <p className="text-sm text-white">{lead.phone}</p>
+                        <p className="text-xs text-gray-600">Phone</p>
+                        <p className="text-sm text-gray-900">{lead.phone}</p>
                       </div>
                     </div>
                   )}
                   {lead.organization && (
                     <div className="flex items-center gap-3">
-                      <Building2 className="w-5 h-5 text-purple-400" />
+                      <Building2 className="w-5 h-5 text-purple-600" />
                       <div>
-                        <p className="text-xs text-slate-400">Organisation</p>
-                        <p className="text-sm text-white">{lead.organization}</p>
+                        <p className="text-xs text-gray-600">Organisation</p>
+                        <p className="text-sm text-gray-900">{lead.organization}</p>
                       </div>
                     </div>
                   )}
                   {lead.next_follow_up && (
                     <div className="flex items-center gap-3">
-                      <Calendar className="w-5 h-5 text-amber-400" />
+                      <Calendar className="w-5 h-5 text-amber-600" />
                       <div>
-                        <p className="text-xs text-slate-400">Next Follow-up</p>
-                        <p className="text-sm text-white">
+                        <p className="text-xs text-gray-600">Next Follow-up</p>
+                        <p className="text-sm text-gray-900">
                           {format(new Date(lead.next_follow_up), 'MMM d, yyyy')}
                         </p>
                       </div>
@@ -345,19 +345,19 @@ export default function LeadDetails() {
                   )}
                   {lead.assigned_to && (
                     <div className="flex items-center gap-3">
-                      <User className="w-5 h-5 text-cyan-400" />
+                      <User className="w-5 h-5 text-cyan-600" />
                       <div>
-                        <p className="text-xs text-slate-400">Assigned To</p>
-                        <p className="text-sm text-white">{lead.assigned_to}</p>
+                        <p className="text-xs text-gray-600">Assigned To</p>
+                        <p className="text-sm text-gray-900">{lead.assigned_to}</p>
                       </div>
                     </div>
                   )}
                   {lead.pledge_amount && (
                     <div className="flex items-center gap-3">
-                      <DollarSign className="w-5 h-5 text-green-400" />
+                      <DollarSign className="w-5 h-5 text-green-600" />
                       <div>
-                        <p className="text-xs text-slate-400">Pledge Amount</p>
-                        <p className="text-sm text-white">
+                        <p className="text-xs text-gray-600">Pledge Amount</p>
+                        <p className="text-sm text-gray-900">
                           ${lead.pledge_amount.toLocaleString()} / {lead.pledge_frequency}
                         </p>
                       </div>
@@ -367,9 +367,9 @@ export default function LeadDetails() {
               )}
               
               {lead.notes && !isEditing && (
-                <div className="pt-4 border-t border-slate-700">
-                  <p className="text-xs text-slate-400 mb-2">Notes</p>
-                  <p className="text-sm text-slate-300">{lead.notes}</p>
+                <div className="pt-4 border-t border-gray-200">
+                  <p className="text-xs text-gray-600 mb-2">Notes</p>
+                  <p className="text-sm text-gray-700">{lead.notes}</p>
                 </div>
               )}
             </CardContent>
@@ -382,19 +382,19 @@ export default function LeadDetails() {
         {/* Right Column - Quick Actions */}
         <div className="space-y-6">
           {/* Add Activity */}
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardHeader>
-              <CardTitle className="text-white">Log Activity</CardTitle>
+          <Card className="bg-white border-0 shadow-sm">
+            <CardHeader className="border-b border-gray-100">
+              <CardTitle className="text-gray-900">Log Activity</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-4 pt-6">
               <Select
                 value={newActivity.type}
                 onValueChange={(value) => setNewActivity({...newActivity, type: value})}
               >
-                <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white">
+                <SelectTrigger className="bg-white border-gray-200 text-gray-900">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-slate-800 border-slate-700">
+                <SelectContent className="bg-white border-gray-200">
                   <SelectItem value="call">Phone Call</SelectItem>
                   <SelectItem value="email">Email</SelectItem>
                   <SelectItem value="meeting">Meeting</SelectItem>
@@ -405,7 +405,7 @@ export default function LeadDetails() {
                 placeholder="What happened?"
                 value={newActivity.description}
                 onChange={(e) => setNewActivity({...newActivity, description: e.target.value})}
-                className="bg-slate-700/50 border-slate-600 text-white"
+                className="bg-white border-gray-200 text-gray-900"
                 rows={4}
               />
               <Button
@@ -419,32 +419,32 @@ export default function LeadDetails() {
           </Card>
 
           {/* Lead Stats */}
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardHeader>
-              <CardTitle className="text-white">Lead Details</CardTitle>
+          <Card className="bg-white border-0 shadow-sm">
+            <CardHeader className="border-b border-gray-100">
+              <CardTitle className="text-gray-900">Lead Details</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-3">
+            <CardContent className="space-y-3 pt-6">
               <div>
-                <p className="text-xs text-slate-400">Source</p>
-                <p className="text-sm text-white capitalize">{lead.source?.replace('_', ' ')}</p>
+                <p className="text-xs text-gray-600">Source</p>
+                <p className="text-sm text-gray-900 capitalize">{lead.source?.replace('_', ' ')}</p>
               </div>
               {lead.membership_tier && (
                 <div>
-                  <p className="text-xs text-slate-400">Membership Tier</p>
-                  <Badge className="bg-purple-500/20 text-purple-300 mt-1">
+                  <p className="text-xs text-gray-600">Membership Tier</p>
+                  <Badge className="bg-purple-50 text-purple-700 border-purple-200 mt-1">
                     {lead.membership_tier.replace(/_/g, ' ')}
                   </Badge>
                 </div>
               )}
               <div>
-                <p className="text-xs text-slate-400">Created</p>
-                <p className="text-sm text-white">
+                <p className="text-xs text-gray-600">Created</p>
+                <p className="text-sm text-gray-900">
                   {format(new Date(lead.created_date), 'MMM d, yyyy')}
                 </p>
               </div>
               <div>
-                <p className="text-xs text-slate-400">Last Updated</p>
-                <p className="text-sm text-white">
+                <p className="text-xs text-gray-600">Last Updated</p>
+                <p className="text-sm text-gray-900">
                   {format(new Date(lead.updated_date), 'MMM d, yyyy')}
                 </p>
               </div>
