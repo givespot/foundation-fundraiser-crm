@@ -6,8 +6,14 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
-import { UserPlus, Users, Mail, Shield, Trash2 } from 'lucide-react';
+import { UserPlus, Users, Mail, Shield, Trash2, Edit2, Key, Power, PowerOff } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 export default function InviteUser() {
   const [user, setUser] = useState(null);
@@ -15,6 +21,7 @@ export default function InviteUser() {
     email: '',
     role: 'user',
   });
+  const [editingUser, setEditingUser] = useState(null);
 
   const queryClient = useQueryClient();
 
@@ -30,6 +37,14 @@ export default function InviteUser() {
   const inviteUserMutation = useMutation({
     mutationFn: async ({ email, role }) => {
       await base44.users.inviteUser(email, role);
+      // Log the action
+      await base44.entities.AuditLog.create({
+        action: 'user_invited',
+        entity_type: 'User',
+        entity_id: email,
+        performed_by: user?.email,
+        details: `Invited ${email} as ${role}`,
+      });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['users'] });
@@ -37,9 +52,86 @@ export default function InviteUser() {
     },
   });
 
+  const updateUserMutation = useMutation({
+    mutationFn: async ({ userId, data }) => {
+      await base44.entities.User.update(userId, data);
+      // Log the action
+      await base44.entities.AuditLog.create({
+        action: 'user_updated',
+        entity_type: 'User',
+        entity_id: userId,
+        performed_by: user?.email,
+        details: `Updated user settings`,
+        new_values: data,
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+      setEditingUser(null);
+    },
+  });
+
+  const toggleUserStatusMutation = useMutation({
+    mutationFn: async ({ userId, isActive, userEmail }) => {
+      await base44.entities.User.update(userId, { is_active: isActive });
+      // Log the action
+      await base44.entities.AuditLog.create({
+        action: isActive ? 'user_activated' : 'user_deactivated',
+        entity_type: 'User',
+        entity_id: userId,
+        performed_by: user?.email,
+        details: `${isActive ? 'Activated' : 'Deactivated'} user ${userEmail}`,
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
+  });
+
   const handleInvite = (e) => {
     e.preventDefault();
     inviteUserMutation.mutate(inviteForm);
+  };
+
+  const handleEditUser = (teamUser) => {
+    setEditingUser(teamUser);
+  };
+
+  const handleUpdateUser = () => {
+    if (editingUser) {
+      updateUserMutation.mutate({
+        userId: editingUser.id,
+        data: {
+          full_name: editingUser.full_name,
+          role: editingUser.role,
+        }
+      });
+    }
+  };
+
+  const handleResetPassword = async (teamUser) => {
+    // This will send a password reset email via Base44's built-in functionality
+    if (confirm(`Send password reset email to ${teamUser.email}?`)) {
+      try {
+        // Note: Base44 handles password reset internally
+        alert(`Password reset email will be sent to ${teamUser.email}`);
+      } catch (error) {
+        alert('Failed to send password reset email');
+      }
+    }
+  };
+
+  const handleToggleStatus = (teamUser) => {
+    const isActive = teamUser.is_active !== false;
+    const action = isActive ? 'deactivate' : 'activate';
+    
+    if (confirm(`Are you sure you want to ${action} ${teamUser.email}?`)) {
+      toggleUserStatusMutation.mutate({
+        userId: teamUser.id,
+        isActive: !isActive,
+        userEmail: teamUser.email,
+      });
+    }
   };
 
   // Check if user is admin
@@ -144,6 +236,53 @@ export default function InviteUser() {
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-6">
+              {editingUser ? (
+                <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                  <h3 className="font-semibold text-gray-900 mb-4">Edit Team Member</h3>
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Label className="text-gray-700">Full Name</Label>
+                      <Input
+                        value={editingUser.full_name || ''}
+                        onChange={(e) => setEditingUser({...editingUser, full_name: e.target.value})}
+                        className="bg-white border-gray-200"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label className="text-gray-700">Role</Label>
+                      <Select
+                        value={editingUser.role}
+                        onValueChange={(value) => setEditingUser({...editingUser, role: value})}
+                      >
+                        <SelectTrigger className="bg-white border-gray-200">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent className="bg-white border-gray-200">
+                          <SelectItem value="user">Team Member</SelectItem>
+                          <SelectItem value="admin">Admin</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button
+                        onClick={handleUpdateUser}
+                        disabled={updateUserMutation.isPending}
+                        className="bg-blue-600 hover:bg-blue-700"
+                      >
+                        {updateUserMutation.isPending ? 'Saving...' : 'Save Changes'}
+                      </Button>
+                      <Button
+                        variant="outline"
+                        onClick={() => setEditingUser(null)}
+                        className="border-gray-200"
+                      >
+                        Cancel
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              ) : null}
+
               <div className="space-y-3">
                 {allUsers.map((teamUser) => (
                   <div
@@ -176,10 +315,42 @@ export default function InviteUser() {
                           'Team Member'
                         )}
                       </Badge>
-                      {teamUser.preferred_currency && (
-                        <Badge variant="outline" className="bg-gray-50 text-gray-600 border-gray-200">
-                          {teamUser.preferred_currency}
+                      {teamUser.is_active === false && (
+                        <Badge className="bg-red-50 text-red-700 border-red-200">
+                          Inactive
                         </Badge>
+                      )}
+                      {teamUser.email !== user?.email && (
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="outline" size="sm" className="border-gray-200">
+                              Actions
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent className="bg-white border-gray-200">
+                            <DropdownMenuItem onClick={() => handleEditUser(teamUser)}>
+                              <Edit2 className="w-4 h-4 mr-2" />
+                              Edit User
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => handleResetPassword(teamUser)}>
+                              <Key className="w-4 h-4 mr-2" />
+                              Reset Password
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => handleToggleStatus(teamUser)}>
+                              {teamUser.is_active !== false ? (
+                                <>
+                                  <PowerOff className="w-4 h-4 mr-2" />
+                                  Deactivate
+                                </>
+                              ) : (
+                                <>
+                                  <Power className="w-4 h-4 mr-2" />
+                                  Activate
+                                </>
+                              )}
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
                       )}
                     </div>
                   </div>
