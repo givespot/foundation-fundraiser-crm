@@ -68,7 +68,7 @@ export default function LeadDetails() {
 
   const convertToMemberMutation = useMutation({
     mutationFn: async () => {
-      await base44.entities.Member.create({
+      const newMember = await base44.entities.Member.create({
         lead_id: lead.id,
         full_name: lead.full_name,
         email: lead.email,
@@ -88,6 +88,13 @@ export default function LeadDetails() {
         performed_by: user?.email,
         activity_date: new Date().toISOString(),
       });
+      
+      // Enroll in onboarding sequence
+      try {
+        await base44.functions.invoke('enrollMemberOnboarding', { member_id: newMember.id });
+      } catch (error) {
+        console.error('Failed to enroll in onboarding:', error);
+      }
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['lead', leadId] });
