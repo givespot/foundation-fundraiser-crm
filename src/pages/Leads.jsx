@@ -49,13 +49,11 @@ export default function Leads() {
     },
   });
 
-  // Filter leads
+  // Filter leads - show all active leads to everyone
   let filteredLeads = leads.filter(l => l.status === 'active');
 
-  // Apply user filter (show only assigned if not admin)
-  if (user?.role !== 'admin') {
-    filteredLeads = filteredLeads.filter(l => l.assigned_to === user?.email);
-  } else if (filters.assignedTo !== 'all') {
+  // Apply user filter for admin filtering
+  if (filters.assignedTo !== 'all') {
     if (filters.assignedTo === 'unassigned') {
       filteredLeads = filteredLeads.filter(l => !l.assigned_to);
     } else {
