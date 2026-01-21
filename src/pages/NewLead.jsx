@@ -37,6 +37,7 @@ export default function NewLead() {
     pledge_currency: user?.preferred_currency || 'USD',
     pledge_frequency: '',
     source: '',
+    source_other: '',
     interest_level: 'medium',
     assigned_to: '',
     next_follow_up: '',
@@ -171,6 +172,18 @@ export default function NewLead() {
                   </SelectContent>
                 </Select>
               </div>
+
+              {formData.source === 'other' && (
+                <div className="space-y-2">
+                  <Label className="text-gray-700">Please specify</Label>
+                  <Input
+                    value={formData.source_other}
+                    onChange={(e) => handleChange('source_other', e.target.value)}
+                    className="bg-white border-gray-200 text-gray-900"
+                    placeholder="Please provide more details about the source"
+                  />
+                </div>
+              )}
 
               <div className="space-y-2">
                 <Label className="text-gray-700">Interest Level</Label>
