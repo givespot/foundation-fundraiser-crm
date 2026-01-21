@@ -30,41 +30,43 @@ export default function Layout({ children, currentPageName }) {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
       <style>{`
         :root {
-          --color-primary: #0073ea;
-          --color-secondary: #00c875;
+          --color-primary: #4285F4;
+          --color-secondary: #34A853;
+          --color-accent: #FBBC04;
+          --color-danger: #EA4335;
         }
         body {
-          font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+          font-family: 'Google Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
       `}</style>
       
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
+      <header className="bg-white border-b border-blue-100 sticky top-0 z-50 shadow-sm">
         <div className="px-6 py-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-green-500 rounded-lg flex items-center justify-center shadow-md">
                 <span className="text-white font-bold text-lg">NS</span>
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900">NO SAFE MARGIN</h1>
-                <p className="text-xs text-gray-500">Foundation Leads Management Portal</p>
+                <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">NO SAFE MARGIN</h1>
+                <p className="text-xs text-blue-600 font-medium">Foundation Leads Management Portal</p>
               </div>
             </div>
             {user && (
               <div className="flex items-center gap-3">
-                <div className="flex items-center gap-3 px-4 py-2 bg-gray-50 rounded-lg">
-                  <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                <div className="flex items-center gap-3 px-4 py-2 bg-blue-50 rounded-lg border border-blue-100">
+                  <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-green-500 rounded-full flex items-center justify-center shadow-sm">
                     <span className="text-white text-sm font-semibold">
                       {user.full_name?.charAt(0)}
                     </span>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-gray-900">{user.full_name}</p>
-                    <p className="text-xs text-gray-500 capitalize">{user.role}</p>
+                    <p className="text-sm font-semibold text-gray-800">{user.full_name}</p>
+                    <p className="text-xs text-blue-600 capitalize font-medium">{user.role}</p>
                   </div>
                 </div>
                 <button
@@ -81,7 +83,7 @@ export default function Layout({ children, currentPageName }) {
 
       <div className="flex">
         {/* Sidebar */}
-        <aside className="w-60 min-h-screen bg-white border-r border-gray-200">
+        <aside className="w-60 min-h-screen bg-white border-r border-blue-100 shadow-sm">
           <nav className="p-4 space-y-1">
             {navigation.map((item) => {
               if (item.adminOnly && user?.role !== 'admin') return null;
@@ -93,8 +95,8 @@ export default function Layout({ children, currentPageName }) {
                   to={createPageUrl(item.page)}
                   className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all font-medium text-sm ${
                     isActive
-                      ? 'bg-blue-50 text-blue-600'
-                      : 'text-gray-700 hover:bg-gray-50'
+                      ? 'bg-gradient-to-r from-blue-500 to-green-500 text-white shadow-md'
+                      : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'
                   }`}
                 >
                   <Icon className="w-5 h-5" />
