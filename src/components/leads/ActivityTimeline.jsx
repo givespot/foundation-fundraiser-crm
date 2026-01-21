@@ -13,46 +13,46 @@ const activityIcons = {
 };
 
 const activityColors = {
-  call: 'text-blue-400',
-  email: 'text-purple-400',
-  meeting: 'text-green-400',
-  note: 'text-slate-400',
-  status_change: 'text-amber-400',
-  assignment: 'text-cyan-400',
+  call: 'text-blue-600',
+  email: 'text-purple-600',
+  meeting: 'text-green-600',
+  note: 'text-gray-600',
+  status_change: 'text-amber-600',
+  assignment: 'text-cyan-600',
 };
 
 export default function ActivityTimeline({ activities }) {
   return (
-    <Card className="bg-slate-800/50 border-slate-700">
-      <CardHeader>
-        <CardTitle className="text-white">Activity Timeline</CardTitle>
+    <Card className="bg-white border-0 shadow-sm">
+      <CardHeader className="border-b border-gray-100">
+        <CardTitle className="text-gray-900">Activity Timeline</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-6">
         {activities.length > 0 ? (
           <div className="space-y-4">
             {activities.map((activity) => {
               const Icon = activityIcons[activity.activity_type] || FileText;
-              const colorClass = activityColors[activity.activity_type] || 'text-slate-400';
+              const colorClass = activityColors[activity.activity_type] || 'text-gray-600';
               
               return (
                 <div key={activity.id} className="flex gap-4">
-                  <div className={`p-2 rounded-lg bg-slate-700/50 h-fit ${colorClass}`}>
+                  <div className={`p-2 rounded-lg bg-gray-100 h-fit ${colorClass}`}>
                     <Icon className="w-4 h-4" />
                   </div>
                   <div className="flex-1">
                     <div className="flex items-start justify-between">
                       <div>
-                        <p className="text-sm font-medium text-white capitalize">
+                        <p className="text-sm font-medium text-gray-900 capitalize">
                           {activity.activity_type.replace('_', ' ')}
                         </p>
-                        <p className="text-sm text-slate-300 mt-1">{activity.description}</p>
+                        <p className="text-sm text-gray-700 mt-1">{activity.description}</p>
                       </div>
-                      <span className="text-xs text-slate-500">
+                      <span className="text-xs text-gray-500">
                         {format(new Date(activity.created_date), 'MMM d, h:mm a')}
                       </span>
                     </div>
                     {activity.performed_by && (
-                      <p className="text-xs text-slate-500 mt-1">
+                      <p className="text-xs text-gray-500 mt-1">
                         by {activity.performed_by}
                       </p>
                     )}
@@ -62,7 +62,7 @@ export default function ActivityTimeline({ activities }) {
             })}
           </div>
         ) : (
-          <p className="text-slate-400 text-sm text-center py-8">
+          <p className="text-gray-500 text-sm text-center py-8">
             No activities yet. Start by logging your first interaction!
           </p>
         )}
