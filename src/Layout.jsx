@@ -51,7 +51,7 @@ export default function Layout({ children, currentPageName }) {
               </div>
               <div>
                 <h1 className="text-xl font-bold text-gray-900">NO SAFE MARGIN</h1>
-                <p className="text-xs text-gray-500">Foundation CRM</p>
+                <p className="text-xs text-gray-500">Foundation Leads Management Portal</p>
               </div>
             </div>
             {user && (
