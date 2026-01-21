@@ -36,6 +36,7 @@ export default function NewLead() {
     town_city: '',
     county: '',
     postcode: '',
+    country: '',
     stage: 'new',
     membership_tier: '',
     pledge_amount: '',
@@ -210,6 +211,15 @@ export default function NewLead() {
                     placeholder="SW1A 1AA"
                   />
                 </div>
+              </div>
+              <div className="space-y-2 md:w-1/2">
+                <Label className="text-gray-700">Country</Label>
+                <Input
+                  value={formData.country}
+                  onChange={(e) => handleChange('country', e.target.value)}
+                  className="bg-white border-gray-200 text-gray-900"
+                  placeholder="United Kingdom"
+                />
               </div>
             </div>
 
