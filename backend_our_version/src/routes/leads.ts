@@ -60,7 +60,7 @@ router.post('/', authenticate, async (req: AuthRequest, res: Response) => {
     await query(
       `INSERT INTO activities (lead_id, activity_type, description, performed_by)
        VALUES ($1, $2, $3, $4)`,
-      [(lead as any).id, 'created', 'Lead created', req.user!.id]
+      [lead.id, 'created', 'Lead created', req.user!.id]
     );
 
     res.status(201).json(lead);
@@ -123,7 +123,7 @@ router.post('/:id/convert', authenticate, async (req: AuthRequest, res: Response
       `INSERT INTO members (lead_id, full_name, email, phone, organization, pledge_amount, pledge_currency, pledge_frequency)
        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
        RETURNING *`,
-      [(lead as any).id, lead.full_name, lead.email, lead.phone, lead.organization,
+      [lead.id, lead.full_name, lead.email, lead.phone, lead.organization,
        lead.pledge_amount, lead.pledge_currency, lead.pledge_frequency]
     );
 
@@ -134,7 +134,7 @@ router.post('/:id/convert', authenticate, async (req: AuthRequest, res: Response
     await query(
       `INSERT INTO activities (lead_id, member_id, activity_type, description, performed_by)
        VALUES ($1, $2, $3, $4, $5)`,
-      [(lead as any).id, memberResult.rows[0].id, 'converted', 'Lead converted to member', req.user!.id]
+      [lead.id, memberResult.rows[0].id, 'converted', 'Lead converted to member', req.user!.id]
     );
 
     res.status(201).json(memberResult.rows[0]);

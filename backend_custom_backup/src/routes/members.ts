@@ -57,7 +57,7 @@ router.post('/', authenticate, async (req: AuthRequest, res: Response) => {
     await query(
       `INSERT INTO activities (member_id, activity_type, description, performed_by)
        VALUES ($1, $2, $3, $4)`,
-      [(member as any).id, 'created', 'Member created', req.user!.id]
+      [member.id, 'created', 'Member created', req.user!.id]
     );
 
     res.status(201).json(member);

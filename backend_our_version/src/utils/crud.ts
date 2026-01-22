@@ -1,4 +1,3 @@
-import { QueryResultRow } from "pg";
 import { query } from './db.js';
 
 export interface FilterOptions {
@@ -17,7 +16,7 @@ export interface PaginatedResult<T> {
   total_pages: number;
 }
 
-export async function list<T extends QueryResultRow = any>(
+export async function list<T>(
   table: string,
   options: FilterOptions = {},
   allowedFilters: string[] = []
@@ -72,12 +71,12 @@ export async function list<T extends QueryResultRow = any>(
   };
 }
 
-export async function getById<T extends QueryResultRow = any>(table: string, id: string): Promise<T | null> {
+export async function getById<T>(table: string, id: string): Promise<T | null> {
   const result = await query<T>(`SELECT * FROM ${table} WHERE id = $1`, [id]);
   return result.rows[0] || null;
 }
 
-export async function create<T extends QueryResultRow = any>(
+export async function create<T>(
   table: string,
   data: Record<string, any>,
   allowedFields: string[]
@@ -104,7 +103,7 @@ export async function create<T extends QueryResultRow = any>(
   return result.rows[0];
 }
 
-export async function update<T extends QueryResultRow = any>(
+export async function update<T>(
   table: string,
   id: string,
   data: Record<string, any>,
