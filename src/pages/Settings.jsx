@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import { Settings as SettingsIcon, Save, User } from 'lucide-react';
+import { Settings as SettingsIcon, Save, User, CheckCircle } from 'lucide-react';
 
 const currencies = [
   { code: 'USD', symbol: '$', name: 'US Dollar' },
@@ -19,6 +19,7 @@ const currencies = [
 
 export default function Settings() {
   const [user, setUser] = useState(null);
+  const [saveSuccess, setSaveSuccess] = useState(false);
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -26,8 +27,9 @@ export default function Settings() {
   }, []);
 
   const [formData, setFormData] = useState({
-    full_name: '',
-    preferred_currency: 'USD',
+    first_name: '',
+    last_name: '',
+    preferred_currency: 'GBP',
     notification_email: true,
     notification_follow_ups: true,
   });
@@ -35,8 +37,9 @@ export default function Settings() {
   useEffect(() => {
     if (user) {
       setFormData({
-        full_name: user.full_name || '',
-        preferred_currency: user.preferred_currency || 'USD',
+        first_name: user.first_name || '',
+        last_name: user.last_name || '',
+        preferred_currency: user.preferred_currency || 'GBP',
         notification_email: user.notification_email !== false,
         notification_follow_ups: user.notification_follow_ups !== false,
       });
@@ -49,6 +52,8 @@ export default function Settings() {
     },
     onSuccess: () => {
       base44.auth.me().then(setUser);
+      setSaveSuccess(true);
+      setTimeout(() => setSaveSuccess(false), 3000);
     },
   });
 
@@ -76,13 +81,23 @@ export default function Settings() {
             </CardHeader>
             <CardContent className="pt-6">
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="space-y-2">
-                  <Label className="text-gray-700">Full Name</Label>
-                  <Input
-                    value={formData.full_name}
-                    onChange={(e) => setFormData({...formData, full_name: e.target.value})}
-                    className="bg-white border-gray-200"
-                  />
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label className="text-gray-700">First Name</Label>
+                    <Input
+                      value={formData.first_name}
+                      onChange={(e) => setFormData({...formData, first_name: e.target.value})}
+                      className="bg-white border-gray-200"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="text-gray-700">Last Name</Label>
+                    <Input
+                      value={formData.last_name}
+                      onChange={(e) => setFormData({...formData, last_name: e.target.value})}
+                      className="bg-white border-gray-200"
+                    />
+                  </div>
                 </div>
 
                 <div className="space-y-2">
@@ -92,7 +107,7 @@ export default function Settings() {
                     disabled
                     className="bg-gray-50 border-gray-200 text-gray-500"
                   />
-                  <p className="text-xs text-gray-500">Email cannot be changed</p>
+                  <p className="text-xs text-gray-500">Contact admin to change email</p>
                 </div>
 
                 <div className="space-y-2">
@@ -124,7 +139,7 @@ export default function Settings() {
                   <p className="text-xs text-gray-500">This will be used for displaying amounts</p>
                 </div>
 
-                <div className="pt-4">
+                <div className="pt-4 flex items-center gap-4">
                   <Button
                     type="submit"
                     disabled={updateSettingsMutation.isPending}
@@ -133,6 +148,12 @@ export default function Settings() {
                     <Save className="w-4 h-4 mr-2" />
                     {updateSettingsMutation.isPending ? 'Saving...' : 'Save Changes'}
                   </Button>
+                  {saveSuccess && (
+                    <span className="text-green-600 flex items-center gap-1 text-sm">
+                      <CheckCircle className="w-4 h-4" />
+                      Saved successfully!
+                    </span>
+                  )}
                 </div>
               </form>
             </CardContent>
@@ -200,7 +221,7 @@ export default function Settings() {
                 <div className="flex justify-between">
                   <span className="text-gray-600">Member since</span>
                   <span className="font-medium text-gray-900">
-                    {user?.created_date && new Date(user.created_date).toLocaleDateString()}
+                    {user?.createdAt && new Date(user.createdAt).toLocaleDateString('en-GB')}
                   </span>
                 </div>
                 <div className="flex justify-between">
